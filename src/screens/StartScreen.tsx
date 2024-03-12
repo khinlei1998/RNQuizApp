@@ -3,7 +3,7 @@ import React, { FC } from 'react'
 interface StartScreenProps {
   startGame: () => void;
 }
-const StartScreen: FC<StartScreenProps> = ({ startGame }) => {
+const StartScreen:FC<StartScreenProps>=({startGame}) => {
   return (
     <View style={styles.body} >
       <View style={styles.titleHeading} >
@@ -11,7 +11,7 @@ const StartScreen: FC<StartScreenProps> = ({ startGame }) => {
       </View>
 
       <View>
-        <TouchableHighlight style={styles.startButton}>
+        <TouchableHighlight style={styles.startButton} onPress={startGame}>
           <Text style={styles.buttonText}>Start</Text>
         </TouchableHighlight>
       </View>

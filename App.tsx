@@ -1,42 +1,50 @@
+import React, { FC, useState } from 'react';
+import { SafeAreaView, StatusBar } from 'react-native';
 
-import React, { useState, createContext, useContext } from 'react';
-import { SafeAreaView, Text, StatusBar } from 'react-native';
 import StartScreen from './src/screens/StartScreen';
 import GameScreen from './src/screens/GameScreen';
-// import { UseStartContext } from './src/Context/Context';
-interface StartScreenProps {
-  startGame: () => void;
+import LoginScreen from './src/screens/LoginScreen';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import WelcomeScreen from './src/screens/WelcomeScreen';
+import SignUpScreen from './src/screens/SignUpScreen';
+import HomeScreen from './src/screens/HomeScreen';
+export type StackParamList = {
+  Welcome: undefined,
+  Login: undefined,
+  SignUp:undefined,
+  Home:undefined
 }
 
-// Step 2: Create a context for the start screen
-const StartContext = createContext<StartScreenProps | undefined>(undefined);
+const App: FC = () => {
+  const [isPlaying, setPlaying] = useState(false);
 
-// Step 3: Create a component that consumes the context
-const ThemeContext = () => useContext(StartContext);
+  function startGame() {
+    setPlaying(true);
+  }
 
-function App(): React.JSX.Element {
-  const startGame = () => {
-    console.log('Starting the game...');
-    // Add logic to start the game
-  };
-  const [isPlaying, setPlaying] = useState<boolean>(false)
-  // const [theme, setTheme] = useState<Theme>('light');
+  const Stack = createNativeStackNavigator<StackParamList>();
+
   return (
-    <>
-      <StatusBar barStyle="light-content" />
-      <SafeAreaView>
-        <StartContext.Provider value={{ startGame }}>
-          <StartScreen />
-        </StartContext.Provider>
-        {/* <UseStartContext.Provider value={{ startGame }}>
-          <StartScreen />
-        </UseStartContext.Provider> */}
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Welcome">
+          <Stack.Screen options={{ headerShown: false }} name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
+          <Stack.Screen options={{ headerShown: false }} name="SignUp" component={SignUpScreen} />
+          <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
 
+        </Stack.Navigator>
+      </NavigationContainer>
 
-      </SafeAreaView>
-    </>
+    // <>
+    //   <StatusBar barStyle="dark-content" />
+
+    //   <SafeAreaView style={{ flex: 1 }}>
+    //     <LoginScreen />
+    //     {/* {!isPlaying ? <StartScreen startGame={startGame} /> : <GameScreen />} */}
+    //   </SafeAreaView>
+    // </>
   );
-}
-
+};
 
 export default App;
