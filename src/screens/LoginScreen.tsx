@@ -1,11 +1,10 @@
-import { Keyboard, Platform, Image, StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native'
+import { Keyboard, Platform,Text, View, TextInput, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native'
 import React, { FC, useState } from 'react'
 import LoginImg from '../images/LoginImg';
-import { scale, verticalScale, moderateScale, ScaledSheet, } from 'react-native-size-matters';
+import { scale, verticalScale, ScaledSheet, } from 'react-native-size-matters';
 import GoogleImg from '../images/GoogleImg';
-import { StackParamList } from '../../App';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-
+import { StackParamList } from '../navigation/types';
 type LoginScreenProps=NativeStackScreenProps<StackParamList, 'Login'>;
 
 const LoginScreen: FC<LoginScreenProps> = ({ navigation}) => {

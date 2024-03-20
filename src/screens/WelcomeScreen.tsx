@@ -1,10 +1,9 @@
 import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { StackParamList } from '../../App';
 import { QuestionImgComponent } from '../images/QuestionImgComponent';
 import { scale, verticalScale, moderateScale,ScaledSheet } from 'react-native-size-matters';
-
+import { StackParamList } from '../navigation/types';
 type WelcomeScreenProps=NativeStackScreenProps<StackParamList, 'Welcome'>;
 
 
@@ -17,7 +16,7 @@ const WelcomeScreen = ({navigation}:WelcomeScreenProps) => {
                     <QuestionImgComponent width={500}  />
                 </View>
                 <View>
-                    <TouchableOpacity style={styles.btnContainer}>
+                    <TouchableOpacity style={styles.btnContainer} onPress={()=>navigation.navigate('SignUp')}>
                         <Text style={styles.btnText}>Sign Up</Text>
                     </TouchableOpacity>
                     <View style={{flexDirection:'row',justifyContent:'center'}}>
