@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "727155291748",
+    "project_id": "rnquizapp-9e1b1",
+    "storage_bucket": "rnquizapp-9e1b1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:727155291748:android:0877b9332d4c77e20b5171",
+        "android_client_info": {
+          "package_name": "com.rnquizapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxJyaSOMCmat8XM-B0N27uCdYUNTWWqaA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

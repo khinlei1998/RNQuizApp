@@ -1,27 +1,33 @@
-import { StyleSheet, Text, View, SafeAreaView, Image } from 'react-native'
+import { StyleSheet, Text, View, SafeAreaView, Image, ScrollView } from 'react-native'
 import React from 'react'
 import { ScaledSheet, } from 'react-native-size-matters';
 import ProgressBar from '../components/ProgressBar';
 import AnswerScreen from './AnswerScreen';
 const QuestionScreen = () => {
   return (
-    <View style={styles.container}>
-      <SafeAreaView>
-        <View style={styles.headerContainer}>
+    <ScrollView>
 
-          <ProgressBar />
+      <View style={styles.container}>
+        <SafeAreaView>
+          <View style={styles.headerContainer}>
+
+            <ProgressBar />
+
+          </View>
+
+        </SafeAreaView>
+        <View style={styles.bodyContainer}>
+
+          <Text style={styles.catergoryTitle}>What is the largest City by population in the world?</Text>
+
+          <AnswerScreen />
+
 
         </View>
 
-      </SafeAreaView>
-      <View style={styles.bodyContainer}>
-        <Text style={styles.catergoryTitle}>What is the largest City by population in the world?</Text>
-
-        <AnswerScreen />
-
-
       </View>
-    </View>
+    </ScrollView>
+
   )
 }
 

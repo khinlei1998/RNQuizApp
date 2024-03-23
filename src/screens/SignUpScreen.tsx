@@ -1,59 +1,126 @@
-import { Keyboard, Platform, Image, StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView } from 'react-native'
+import { Keyboard, Platform, Image, StyleSheet, Text, View, TextInput, SafeAreaView, TouchableOpacity, TouchableWithoutFeedback, KeyboardAvoidingView, ScrollView } from 'react-native'
 import React, { FC, useState } from 'react'
 import { scale, verticalScale, moderateScale, ScaledSheet, } from 'react-native-size-matters';
 import LoginImg from '../images/LoginImg';
+import auth from '@react-native-firebase/auth';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { StackParamList } from '../navigation/types';
 
-const SignUpScreen = () => {
-    const [text, onChangeText] = useState('Useless Text');
+interface SignUpScreenProps {
+    handleRegister: () => void
+}
+interface SignUpForm {
+    username: string;
+    email: string;
+    password: string ;
+}
+
+const SignUpScreen = (props: SignUpScreenProps) => {
+
+    const [formData, setFormData] = useState<SignUpForm>({
+        username: '',
+        email: '',
+        password: '',
+    });
+
+    const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>()
+    const handleRegister = async () => {
+        console.log('2')          
+
+        if (formData.email && formData.password) {
+            console.log('1')          
+
+            if(formData.password.length >= 6){      
+                console.log('click')          
+                await auth()
+                .createUserWithEmailAndPassword(formData.email, formData.password)
+                .then((userInfo) => {
+                    console.log('success',userInfo.user.uid);
+                    
+                    console.log('User account created & signed in!');
+                    navigation.navigate('Home')
+                })
+                .catch(error => {
+                    if (error.code === 'auth/email-already-in-use') {
+                        console.log('That email address is already in use!');
+                    }
+
+                    if (error.code === 'auth/invalid-email') {
+                        console.log('That email address is invalid!');
+                    }
+
+                    console.error(error);
+                });
+            }
+           
+        }
+
+
+    }
+
+    const handleChange = (key: keyof SignUpForm, value: string) => {
+        setFormData({ ...formData, [key]: value });
+    };
 
     return (
+
         <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={{ flex: 1 }}>
-            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <View style={styles.container}>
-                    <View style={styles.headerContainer}>
-                        <LoginImg width={scale(250)} height={verticalScale(200)} />
-                    </View>
-                    <View style={styles.footerContainer}>
-                        <View style={styles.inputContainer}>
-                            <Text style={styles.emailTitle}>Full Name</Text>
-                            <TextInput
-                                style={styles.inputsubContainer}
-                                onChangeText={onChangeText}
-                            />
+            <ScrollView contentContainerStyle={{
+                backgroundColor: 'red', flexGrow: 1,
+            }}>
+                <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+                    <View style={styles.container}>
+                        <View style={styles.headerContainer}>
+                            <LoginImg width={scale(250)} height={verticalScale(200)} />
                         </View>
-                        <View style={styles.inputContainer}>
-                            <Text style={styles.emailTitle}>Email Address</Text>
-                            <TextInput
-                                style={styles.inputsubContainer}
-                                onChangeText={onChangeText}
-                            />
-                        </View>
+                        <View style={styles.footerContainer}>
+                            <View style={styles.inputContainer}>
+                                <Text style={styles.emailTitle}>Full Name</Text>
+                                <TextInput
+                                    style={styles.inputsubContainer}
+                                    onChangeText={(text) => handleChange('username', text)}
+                                    value={formData.username}
+                                />
+                            </View>
+                            <View style={styles.inputContainer}>
+                                <Text style={styles.emailTitle}>Email Address</Text>
+                                <TextInput
+                                    style={styles.inputsubContainer}
+                                    onChangeText={(text) => handleChange('email', text)}
+                                    value={formData.email}
+                                    keyboardType='email-address'
+                                />
+                            </View>
 
-                        <View style={styles.inputContainer}>
-                            <Text style={styles.passwordTitle}>Password</Text>
-                            <TextInput
-                                style={styles.inputsubContainer}
-                                onChangeText={onChangeText}
-                            />
-                        </View>
+                            <View style={styles.inputContainer}>
+                                <Text style={styles.passwordTitle}>Password</Text>
+                                <TextInput
+                                    style={styles.inputsubContainer}
+                                    onChangeText={(text) => handleChange('password', text)}
+                                    value={formData.password}
+                                    secureTextEntry
+                                />
+                            </View>
 
-                        <TouchableOpacity style={styles.btnLogin} >
-                            <Text style={styles.loginBtnTitle} >Sign Up</Text>
-                        </TouchableOpacity>
-
-                        <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 20,marginTop:10 }}>Or</Text>
-
-                        <View style={styles.accountContainer}>
-
-                            <Text style={{ color: '#000', fontSize: scale(15) }}>Already Have an account?</Text>
-                            <TouchableOpacity  >
-                                <Text style={styles.registerTitle}>Login</Text>
+                            <TouchableOpacity style={styles.btnLogin} onPress={() => handleRegister()} >
+                                <Text style={styles.loginBtnTitle} >Sign Up</Text>
                             </TouchableOpacity>
+
+                            <Text style={{ textAlign: 'center', fontWeight: 'bold', fontSize: 20, marginTop: 10 }}>Or</Text>
+
+                            <View style={styles.accountContainer}>
+
+                                <Text style={{ color: '#000', fontSize: scale(15) }}>Already Have an account?</Text>
+                                <TouchableOpacity  >
+                                    <Text style={styles.registerTitle}>Login</Text>
+                                </TouchableOpacity>
+                            </View>
                         </View>
                     </View>
-                </View>
-            </TouchableWithoutFeedback>
+                </TouchableWithoutFeedback>
+            </ScrollView>
         </KeyboardAvoidingView>
     )
 }
