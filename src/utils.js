@@ -1,6 +1,7 @@
 export const ques_data = {
   "questions": [
     {
+      "category_id":1,
       "content": "What is the nickname of the US state of California?",
       "answers": [
         { "key": "A", "content": "Golden State" },
@@ -11,6 +12,7 @@ export const ques_data = {
       "correctAnswer": "A"
     },
     {
+      "category_id":1,
       "content": "Trong một bài kiểm tra có các câu hỏi bằng điểm nhau. Bạn trả lời sai 10 câu và tổng điểm chỉ đạt 60%. Vậy bài kiểm tra đó có tất cả bao nhiêu câu hỏi?",
       "answers": [
         { "key": "A", "content": "20" },
@@ -21,6 +23,7 @@ export const ques_data = {
       "correctAnswer": "B"
     },
     {
+      "category_id":2,
       "content": "Nếu 8 năm trước Cường 32 tuổi thì anh ta bao nhiêu tuổi cách đây x năm?",
       "answers": [
         { "key": "A", "content": "x - 24" },

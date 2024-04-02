@@ -4,7 +4,7 @@ export type StackParamList = {
     Login: undefined,
     SignUp: undefined,
     Home: undefined,
-    Question: undefined,
+    Question: { category_id: number },
     Category: undefined,
     Result:undefined
 }

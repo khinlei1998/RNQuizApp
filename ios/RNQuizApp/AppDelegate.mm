@@ -1,7 +1,6 @@
 #import "AppDelegate.h"
 
 #import <React/RCTBundleURLProvider.h>
-#import <Firebase.h>
 
 @implementation AppDelegate
 
@@ -13,10 +12,7 @@
   // You can add your custom initial props in the dictionary below.
   // They will be passed down to the ViewController used by React Native.
   self.initialProps = @{};
-  // Add me --- \/
-  [FIRApp configure];
-  // Add me --- /\
-  // ...
+  
   return [super application:application didFinishLaunchingWithOptions:launchOptions];
 }
 
