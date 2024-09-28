@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity, Alert} from 'react-native';
 import React from 'react';
 import {scale, verticalScale, ScaledSheet} from 'react-native-size-matters';
 import RadioButton from '../components/RadioButton';
@@ -11,33 +11,48 @@ interface Answer {
 }
 
 interface AnswerProps {
-  filteredcategory: Answer[];
+  filteredcategory: Answer[],
+  checkAnswer: (answer: string) => void;
+  selectedItem:string
 }
 
 const AnswerScreen = (props: AnswerProps) => {
   const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
-  const {filteredcategory} = props;
+  const {filteredcategory, checkAnswer,selectedItem} = props;
+
   return (
     <>
       {filteredcategory.map((answer, index) => (
-        <View
+        <TouchableOpacity
+          onPress={() => checkAnswer(answer.key)}
           key={index}
           style={{
-            backgroundColor: '#fff',
+            backgroundColor:
+              answer.key === selectedItem
+                ? '#7A70F9'
+                : '#fff', //#fff , 7A70F9,
+            // backgroundColor:'#fff',
             borderRadius: 15,
             marginHorizontal: 15,
             marginVertical: 15,
             padding: 20,
-            borderColor: '#7A70F9',
+            borderColor:'#7A70F9',
             borderWidth: 0.8,
             flexDirection: 'row',
             justifyContent: 'space-between',
           }}>
-          <Text style={styles.answerTitle}>{answer.content}</Text>
-          <RadioButton />
-        </View>
+          <Text
+            style={{
+              fontSize: scale(16),
+              marginHorizontal: scale(10),
+              color:
+                answer.key === selectedItem ? '#fff' : '#000',
+            }}>
+            {answer.content}
+          </Text>
+          {/* <RadioButton /> */}
+        </TouchableOpacity>
       ))}
-     
     </>
   );
 };
@@ -48,6 +63,6 @@ const styles = ScaledSheet.create({
   answerTitle: {
     fontSize: '16@s',
     marginHorizontal: '10@s',
+    color: '#fff',
   },
-  
 });

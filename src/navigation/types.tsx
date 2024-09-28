@@ -6,7 +6,8 @@ export type StackParamList = {
     Home: undefined,
     Question: { category_id: number },
     Category: undefined,
-    Result:undefined
+    Test:undefined,
+    Result:{ ques_number: number ,score:number}
 }
 export type OnboardingScreenProp = NativeStackScreenProps<
     StackParamList,
@@ -39,6 +40,10 @@ export type CategoryScreenProp = NativeStackScreenProps<
 export type ResultScreenProp = NativeStackScreenProps<
     StackParamList,
     'Result'
+>;
+export type TestScreenProp = NativeStackScreenProps<
+    StackParamList,
+    'Test'
 >;
 
  

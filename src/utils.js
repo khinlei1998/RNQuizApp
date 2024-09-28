@@ -2,23 +2,23 @@ export const ques_data = {
   "questions": [
     {
       "category_id":1,
-      "content": "What is the nickname of the US state of California?",
+      "content": "Who is the lead singer of the band Coldplay?",
       "answers": [
-        { "key": "A", "content": "Golden State" },
-        { "key": "B", "content": "Sunshine State" },
-        { "key": "C", "content": "Bay State" },
-        { "key": "D", "content": "Treasure State" }
+        { "key": "A", "content": "Chris Martin" },
+        { "key": "B", "content": "Chris Isaak" },
+        { "key": "C", "content": "Chris Wallace" },
+        { "key": "D", "content": "Chris Connelly" }
       ],
       "correctAnswer": "A"
     },
     {
       "category_id":1,
-      "content": "Trong một bài kiểm tra có các câu hỏi bằng điểm nhau. Bạn trả lời sai 10 câu và tổng điểm chỉ đạt 60%. Vậy bài kiểm tra đó có tất cả bao nhiêu câu hỏi?",
+      "content": "Which song is not by TheFatRat?",
       "answers": [
-        { "key": "A", "content": "20" },
-        { "key": "B", "content": "25" },
-        { "key": "C", "content": "30" },
-        { "key": "D", "content": "35" }
+        { "key": "A", "content": "Monody" },
+        { "key": "B", "content": "Ascent" },
+        { "key": "C", "content": "Windfall" },
+        { "key": "D", "content": "Infinite Power!" }
       ],
       "correctAnswer": "B"
     },

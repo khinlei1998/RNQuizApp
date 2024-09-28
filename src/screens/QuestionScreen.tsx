@@ -16,6 +16,7 @@ import {useState} from 'react';
 import {Route} from '@react-navigation/native';
 import {QuestionScreenProp} from '../navigation/types';
 import Icon from 'react-native-vector-icons/Feather';
+const ANSWER_TIME = 10;
 
 const QuestionScreen = (props: QuestionScreenProp) => {
   const {route, navigation} = props;
@@ -23,23 +24,64 @@ const QuestionScreen = (props: QuestionScreenProp) => {
     val => val.category_id == route.params.category_id,
   );
   const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [score, setScore] = useState(0);
+  const [selectedItem, setselectedItem] = useState<string>('');
+  const [remainingTime, setRemainingTime] = useState(ANSWER_TIME);  
   const question = filter_category[currentQuestion];
-  const ques_number=filter_category.length
+  const ques_number = filter_category.length;
+
+  function handleNext() {
+    if (currentQuestion == ques_number - 1) {
+      navigation.navigate('Result',{ques_number,score});
+    } else {
+      setCurrentQuestion(currentQuestion + 1);
+      setselectedItem('');
+    }
+  }
+
+  function checkAnswer(answer: string) {
+    setselectedItem(answer);
+
+    if (answer === question.correctAnswer) {
+      setScore(prevScore => prevScore + 1);
+    }
+    // else {
+    //   setScore(0);
+    // }
+  }
+  console.log('score', score);
+  
+
+  const answerTimeProgress = (remainingTime / ANSWER_TIME) * 100;
+
+
   return (
-    <ScrollView>
+    <ScrollView
+      contentContainerStyle={{
+        backgroundColor: 'red',
+        flexGrow: 1,
+      }}>
       <View style={styles.container}>
         <SafeAreaView>
           <View style={styles.headerContainer}>
-            <ProgressBar currentQuestion={currentQuestion+1} ques_number={ques_number} />
+            <ProgressBar
+              currentQuestion={currentQuestion + 1}
+              ques_number={ques_number}
+              progress={answerTimeProgress}
+            />
           </View>
         </SafeAreaView>
         <View style={styles.bodyContainer}>
           <Text style={styles.catergoryTitle}>{question.content}</Text>
 
-          <AnswerScreen filteredcategory={question.answers} />
+          <AnswerScreen
+            filteredcategory={question.answers}
+            checkAnswer={checkAnswer}
+            selectedItem={selectedItem}
+          />
           <TouchableOpacity
             style={styles.btnLogin}
-            onPress={() => setCurrentQuestion(currentQuestion+1)}>
+            onPress={() => handleNext()}>
             <Text style={styles.loginBtnTitle}>Next</Text>
             <Icon
               name="arrow-right-circle"
